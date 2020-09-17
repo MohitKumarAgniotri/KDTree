@@ -7,7 +7,6 @@
 // get a linked list of data from the given file name :)
 struct LinkedList * readFile(const char * filename)
 {
-
     // open the file
     FILE * fp = fopen(filename, "r");
     // if cannot open file, return null
@@ -45,10 +44,10 @@ struct LinkedList * readFile(const char * filename)
             line[ strlen(line) - 1] = '\0';
 
             // get the data from this line
-            struct Data * data = getData(line);
+            struct KeyDataPair * keyPair = getData(line);
 
             // add this data to linked list
-            insert(list, data);
+            insert(list, keyPair->key, keyPair->d);
         }
         //free the line ptr
         free(line);
@@ -85,7 +84,7 @@ void searchKeys(struct LinkedList * list, FILE * fout)
     }
 }
 
-
+#if 0
 void freeLinkedList(struct LinkedList* list)
 {
     struct Node *current, *tmpNode;
@@ -102,6 +101,7 @@ void freeLinkedList(struct LinkedList* list)
         free(tmpNode);
     }
 }
+#endif
 
 int main(int argc, const char * argv[])
 {
@@ -137,7 +137,7 @@ int main(int argc, const char * argv[])
     // close the output file :)
     fclose(fout);
 
-    freeLinkedList(list);
+    //freeLinkedList(list);
     free(list);
 
     return 0;

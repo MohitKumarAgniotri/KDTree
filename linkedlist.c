@@ -5,40 +5,58 @@
 #include "linkedlist.h"
 
 // method to insert a new node in the linked list
-void insert(struct LinkedList * list, struct Data * data)
-{
-    struct Node * newNode = (struct Node *)malloc(sizeof(struct Node));
-    if (newNode != NULL)
-    {
-	    // if the head is null
-	    if( list->head == NULL )
-	    {
-		    // create a new head
-		    list->head = newNode; 
+void insert(struct LinkedList * list, char *key, struct Data * data) {
+    int found = 0;
+    //try to find the node with the key:
+    // the reference to the head node
+    struct Node *current = list->head;
+    // as long as current is not null
+    while (current != NULL) {
+        // if this is the key we are looking for
+        if (strcmp(current->key, key) == 0) {
+            found = 1;
+            struct Data *tmpData = current->data;
+            while (tmpData->nextData != NULL) {
+                tmpData = tmpData->nextData;
+            }
+            tmpData->nextData = data;
+            data->nextData = NULL;
+            free(key);
+        }
+        // move on to the next node
+        current = current->next;
+    }
 
-		    // set the data
-		    list->head->data = data;
+    if (!found) {
+        struct Node *newNode = (struct Node *) malloc(sizeof(struct Node));
+        if (newNode != NULL)
+        {
+            data->nextData = NULL;
+            newNode->next = NULL;
+            newNode->key = key;
+            newNode->data = data;
 
-		    // set the next to null
-		    list->head->next = NULL;
+            // if the head is null
+            if (list->head == NULL) {
+                // create a new head
+                list->head = newNode;
 
-		    // set the tail to head
-		    list->tail = list->head;
-	    }
-	    else
-	    {
-		    // set data and next
-		    newNode->data = data;
-		    newNode->next = NULL;
+                // set the next to null
+                list->head->next = NULL;
 
-		    // set the next of tail to new node
-		    list->tail->next = newNode;
-
-		    // set the tail to the new node
-		    list->tail = newNode;
-	    }
-	    // increment the size by 1
-	    list->size++;
+                // set the tail to head
+                list->tail = list->head;
+            }
+            else
+            {
+                // set the next of tail to new node
+                list->tail->next = newNode;
+                // set the tail to the new node
+                list->tail = newNode;
+            }
+            // increment the size by 1
+            list->size++;
+        }
     }
 }
 
@@ -57,10 +75,17 @@ void search(struct LinkedList * list, char * key, FILE * fp)
     while( current != NULL )
     {
         // if this is the key we are looking for
-        if( strcmp(current->data->tradingName, key) == 0 )
+        if( strcmp(current->key, key) == 0 )
         {
-            // print this data
-            printData(current->data, fp);
+
+            struct Data *tmp = current->data;
+            while(tmp!=NULL)
+            {
+                // print this data
+                printData(current->key, tmp, fp);
+                tmp = tmp->nextData;
+            }
+
 
             // set found to true
             found = 1;
