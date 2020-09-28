@@ -48,6 +48,8 @@ struct LinkedList * readFile(const char * filename)
 
             // add this data to linked list
             insert(list, keyPair->key, keyPair->d);
+
+            free(keyPair);
         }
         //free the line ptr
         free(line);
