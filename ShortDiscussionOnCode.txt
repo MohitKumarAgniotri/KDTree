@@ -1,0 +1,37 @@
+File Data.c
+	function : char * substr(char * str, int i, int j)
+	1.	Added check for the null pointer.
+	
+	function: struct Data * getData(char * line) 
+	1. modified function to return (key, data) pair instead of just data*
+	2. Added functionality to handle "extra quotes"
+	
+	function:void GetDelimType(const char *line, char *delim, int *i)
+	1. Implemented new function, as it is required to determine the apprpriate delimiter while parsing strings.
+	
+	function: void printKData(char *key, struct Data * data, FILE * fp)
+	1. Implemented the function to recursively print all the data associated with a key.
+	
+file data.h 
+	Implemented new data struct to hold key & data pair 
+	struct KeyDataPair 
+	
+	Optimized the data struct to use dynamic memory allocation for strings
+	struct Data: from char[128] -> char*
+	
+	Extended the data struct to link same data set (having same trading name)
+
+file linkedlist.c
+	function: void insert(struct LinkedList * list, char *key, struct Data * data)
+	1. Extended the function to insert based on a key.
+	2. The function ensures that one key is only added once. All the data associated with a unique key is linked. This helps in memory optimization
+	
+	function:void search(struct LinkedList * list, char * key, FILE * fp)
+	1. Extended to account for linked data for each key. Instead of PrintData, it now uses PrintKData
+	
+file linkedlist.h
+	1. Extended struct Node to house a key. This is used to identify unique and avoids duplication
+	2. Implemented new function declaration for void freeLinkedList(struct LinkedList * list);
+	
+file: main.c
+	Implemented function to free LinkedList
