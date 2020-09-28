@@ -13,15 +13,18 @@ void insert(struct LinkedList * list, char *key, struct Data * data) {
     // as long as current is not null
     while (current != NULL) {
         // if this is the key we are looking for
-        if (strcmp(current->key, key) == 0) {
+        if (strcmp(current->key, key) == 0)
+        {
             found = 1;
             struct Data *tmpData = current->data;
-            while (tmpData->nextData != NULL) {
+            while (tmpData->nextData != NULL)
+            {
                 tmpData = tmpData->nextData;
             }
             tmpData->nextData = data;
             data->nextData = NULL;
             free(key);
+            break;
         }
         // move on to the next node
         current = current->next;
@@ -79,13 +82,7 @@ void search(struct LinkedList * list, char * key, FILE * fp)
         {
 
             struct Data *tmp = current->data;
-            while(tmp!=NULL)
-            {
-                // print this data
-                printData(current->key, tmp, fp);
-                tmp = tmp->nextData;
-            }
-
+            printKData(key, tmp, fp);
 
             // set found to true
             found = 1;

@@ -30,7 +30,7 @@ struct LinkedList
 };
 
 // the method to insert a new node in the linked list
-void insert(struct LinkedList * list, struct Data * data);
+void insert(struct LinkedList * list, char *key, struct Data * data);
 
 // method to search
 void search(struct LinkedList * list, char * key, FILE * fp);

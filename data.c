@@ -197,6 +197,7 @@ struct KeyDataPair * getData(char * line)
                 strcpy(data->location, s);
             }
             free(s);
+            data->nextData = NULL;
             keyPair->d = data;
         }
     }
@@ -210,6 +211,10 @@ void GetDelimType(const char *line, char *delim, int *i)
         (*delim) = '"';
         (*i) +=1;
     }
+    else if (line[(*i)] == ','){
+        (*delim) = ',';
+        (*i) +=1;
+    }
     else{
         (*delim) = ',';
     }
@@ -220,4 +225,15 @@ void printData(char *key, struct Data * data, FILE * fp)
 {
     // print the data :)
     fprintf(fp, "%s --> Census year: %d || Block ID: %d || Property ID: %d || Base property ID: %d || CLUE small area: %s || Industry (ANZSIC4) code: %d || Industry (ANZSIC4) description: %s || x coordinate: %.4lf || y coordinate: %.4lf || Location: %s \n\n", key, data->censusYear, data->blockID, data->propertyID, data->basePropertyID, data->CLUESmallArea, data->industryCode, data->industryDescription, data->XCoordinate, data->YCoordinate, data->location );
+}
+
+// the method is to print data to file
+void printKData(char *key, struct Data * data, FILE * fp)
+{
+    // print the data :)
+    while (data)
+    {
+        fprintf(fp, "%s --> Census year: %d || Block ID: %d || Property ID: %d || Base property ID: %d || CLUE small area: %s || Industry (ANZSIC4) code: %d || Industry (ANZSIC4) description: %s || x coordinate: %.4lf || y coordinate: %.4lf || Location: %s \n\n", key , data->censusYear, data->blockID, data->propertyID, data->basePropertyID, data->CLUESmallArea, data->industryCode, data->industryDescription, data->XCoordinate, data->YCoordinate, data->location );
+        data = data->nextData;
+    }
 }

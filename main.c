@@ -66,7 +66,7 @@ void searchKeys(struct LinkedList * list, FILE * fout)
     // the key to be searched
     char * key;
     size_t len = 0;
-    ssize_t read;
+    size_t read;
 
     // read the keys
 
@@ -82,26 +82,34 @@ void searchKeys(struct LinkedList * list, FILE * fout)
         // search
         search(list, key, fout);
     }
+
+    free(key);
 }
 
-#if 0
+
 void freeLinkedList(struct LinkedList* list)
 {
     struct Node *current, *tmpNode;
+    struct Data *currentData, *tmpDataNode;
     current = list->head;
     while (current != NULL)
     {
         tmpNode = current;
+        currentData = current->data;
         current = current->next;
-        free(tmpNode->data->CLUESmallArea);
-        free(tmpNode->data->industryDescription);
-        free(tmpNode->data->tradingName);
-        free(tmpNode->data->location);
-        free(tmpNode->data);
+        while(currentData)
+        {
+            tmpDataNode = currentData;
+            currentData = currentData->nextData;
+            free(tmpDataNode->CLUESmallArea);
+            free(tmpDataNode->industryDescription);
+            free(tmpDataNode->location);
+            free(tmpDataNode);
+        }
+        free(tmpNode->key);
         free(tmpNode);
     }
 }
-#endif
 
 int main(int argc, const char * argv[])
 {
@@ -137,7 +145,8 @@ int main(int argc, const char * argv[])
     // close the output file :)
     fclose(fout);
 
-    //freeLinkedList(list);
+    freeLinkedList(list);
+
     free(list);
 
     return 0;
