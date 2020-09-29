@@ -21,7 +21,7 @@ default : dict
 # countwords.o, counter.o, and scanner.o:
 #
 dict:  data.o  linkedlist.o  main.o
-	$(CC) $(CFLAGS) -o map1 data.o  linkedlist.o  main.o $(LFLAGS)
+	$(CC) $(CFLAGS) -o dict data.o  linkedlist.o  main.o $(LFLAGS)
 
 # To create the object file counter.o, we need the source files
 # counter.c and counter.h:
