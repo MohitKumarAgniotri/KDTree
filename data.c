@@ -233,7 +233,7 @@ void printKData(char *key, struct Data * data, FILE * fp)
     // print the data :)
     while (data)
     {
-        fprintf(fp, "%s --> Census year: %d || Block ID: %d || Property ID: %d || Base property ID: %d || CLUE small area: %s || Industry (ANZSIC4) code: %d || Industry (ANZSIC4) description: %s || x coordinate: %.4lf || y coordinate: %.4lf || Location: %s \n\n", key , data->censusYear, data->blockID, data->propertyID, data->basePropertyID, data->CLUESmallArea, data->industryCode, data->industryDescription, data->XCoordinate, data->YCoordinate, data->location );
+        fprintf(fp, "%s --> Census year: %d || Block ID: %d || Property ID: %d || Base property ID: %d || CLUE small area: %s || Industry (ANZSIC4) code: %d || Industry (ANZSIC4) description: %s || x coordinate: %.7lf || y coordinate: %.7lf || Location: %s \n\n", key , data->censusYear, data->blockID, data->propertyID, data->basePropertyID, data->CLUESmallArea, data->industryCode, data->industryDescription, data->XCoordinate, data->YCoordinate, data->location );
         data = data->nextData;
     }
 }
