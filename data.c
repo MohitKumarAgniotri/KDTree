@@ -191,7 +191,9 @@ struct KeyDataPair * getData(char * line)
 
             // store location
             i = j + 1;
-            s = substr(line, i, strlen(line));
+            GetDelimType(line, &delim, &i);
+            j = find(line, i, delim);
+            s = substr(line, i, j);
             data->location = (char *) malloc(strlen(s) + 1);
             if (data->location) {
                 strcpy(data->location, s);
